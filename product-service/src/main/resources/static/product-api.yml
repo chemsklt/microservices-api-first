@@ -151,7 +151,7 @@ paths:
           content:
             application/json:
               schema:
-                  $ref: '#/components/schemas/ProductPageResponse'
+                $ref: '#/components/schemas/ProductPageResponse'
               examples:
                 products:
                   value:
