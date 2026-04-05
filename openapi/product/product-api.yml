@@ -1,0 +1,277 @@
+openapi: 3.0.3
+
+info:
+  title: Product Service API
+  version: 1.0.0
+  description: API for managing product catalog data.
+  contact:
+    name: Project Team
+    email: chemsklt@example.com
+
+externalDocs:
+  description: Product Service Wiki
+  url: https://wiki-docs/product-service
+
+servers:
+  - url: http://localhost:8080
+    description: Local development
+  - url: http://localhost:9000
+    description: API Gateway
+
+tags:
+  - name: Products
+    description: Product catalog operations
+
+paths:
+  /api/products:
+    post:
+      tags:
+        - Products
+      operationId: createProduct
+      summary: Create product
+      description: Creates a new product in the catalog.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductRequest'
+            examples:
+              iphone:
+                summary: iPhone example
+                value:
+                  name: iPhone 15
+                  description: Latest Apple smartphone
+                  price: 999.99
+      responses:
+        '201':
+          description: Product created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductResponse'
+              examples:
+                created:
+                  value:
+                    id: 65f2c9d8a1234567890abcd1
+                    name: iPhone 15
+                    description: Latest Apple smartphone
+                    price: 999.99
+        '400':
+          description: Invalid request payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+              examples:
+                validationError:
+                  value:
+                    status: 400
+                    message: Validation failed for request body
+                    path: /api/products
+                    timestamp: "2026-04-04T12:00:00Z"
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+
+    get:
+      tags:
+        - Products
+      operationId: getAllProducts
+      summary: List products
+      description: Returns products in the catalog with optional filtering and pagination.
+      parameters:
+        - name: name
+          in: query
+          required: false
+          description: Optional partial product name filter
+          schema:
+            type: string
+            minLength: 1
+            example: iPhone
+
+        - name: minPrice
+          in: query
+          required: false
+          description: Optional minimum product price filter
+          schema:
+            type: number
+            format: double
+            minimum: 0
+            example: 500
+
+        - name: maxPrice
+          in: query
+          required: false
+          description: Optional maximum product price filter
+          schema:
+            type: number
+            format: double
+            minimum: 0
+            example: 1500
+
+        - name: page
+          in: query
+          required: false
+          description: Page number
+          schema:
+            type: integer
+            minimum: 0
+            default: 0
+
+        - name: size
+          in: query
+          required: false
+          description: Page size
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 20
+
+        - name: sort
+          in: query
+          required: false
+          description: Sort field and direction
+          schema:
+            type: string
+            example: createdAt,desc
+      responses:
+        '200':
+          description: Products retrieved successfully
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/ProductPageResponse'
+              examples:
+                products:
+                  value:
+                    - id: 65f2c9d8a1234567890abcd1
+                      name: iPhone 15
+                      description: Latest Apple smartphone
+                      price: 999.99
+                    - id: 65f2c9d8a1234567890abcd2
+                      name: Samsung Galaxy S24
+                      description: Latest Samsung smartphone
+                      price: 899.99
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+
+components:
+  schemas:
+    ProductRequest:
+      type: object
+      required:
+        - name
+        - price
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 255
+          description: Product display name
+          example: iPhone 15
+        description:
+          type: string
+          maxLength: 1000
+          description: Product description
+          example: Latest Apple smartphone
+        price:
+          type: number
+          format: double
+          minimum: 0
+          description: Product price
+          example: 999.99
+
+    ProductResponse:
+      type: object
+      required:
+        - id
+        - name
+        - price
+      properties:
+        id:
+          type: string
+          description: Unique product identifier
+          example: 65f2c9d8a1234567890abcd1
+        name:
+          type: string
+          description: Product display name
+          example: iPhone 15
+        description:
+          type: string
+          description: Product description
+          example: Latest Apple smartphone
+        price:
+          type: number
+          format: double
+          description: Product price
+          example: 999.99
+
+    ProductPageResponse:
+      type: object
+      required:
+        - content
+        - page
+        - size
+        - totalElements
+        - totalPages
+      properties:
+        content:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductResponse'
+        page:
+          type: integer
+          example: 0
+        size:
+          type: integer
+          example: 20
+        totalElements:
+          type: integer
+          format: int64
+          example: 125
+        totalPages:
+          type: integer
+          example: 7
+
+    ApiError:
+      type: object
+      required:
+        - status
+        - message
+        - path
+        - timestamp
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: Validation failed for request body
+        path:
+          type: string
+          example: /api/products
+        timestamp:
+          type: string
+          format: date-time
+          example: "2026-04-04T12:00:00Z"

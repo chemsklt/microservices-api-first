@@ -1,0 +1,190 @@
+openapi: 3.0.3
+
+info:
+  title: Order Service API
+  version: 1.0.0
+  description: API for placing customer orders.
+  contact:
+    name: Project Team
+    email: chemsklt@example.com
+
+externalDocs:
+  description: Order Service Wiki
+  url: https://wiki/order-service
+
+servers:
+  - url: http://localhost:8081
+    description: Local development
+  - url: http://localhost:9000
+    description: API Gateway
+
+tags:
+  - name: Orders
+    description: Order operations
+
+paths:
+  /api/order:
+    post:
+      tags:
+        - Orders
+      operationId: placeOrder
+      summary: Place order
+      description: Creates a new order after checking product stock availability.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderRequest'
+            examples:
+              standardOrder:
+                summary: Standard order
+                value:
+                  skuCode: iphone_13
+                  price: 1200.00
+                  quantity: 2
+                  userDetails:
+                    email: test@mail.com
+                    firstName: Chems
+                    lastName: Keltoum
+      responses:
+        '201':
+          description: Order created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderCreatedResponse'
+              examples:
+                created:
+                  value:
+                    orderNumber: 2c0f0e7e-9f95-4f4b-8ea1-d77f0e6f7f4e
+                    message: Order placed successfully
+        '400':
+          description: Invalid request payload
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+              examples:
+                validationError:
+                  value:
+                    status: 400
+                    message: Validation failed
+                    path: /api/order
+                    timestamp: "2026-04-04T12:00:00Z"
+        '409':
+          description: Product is not in stock
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+              examples:
+                outOfStock:
+                  value:
+                    status: 409
+                    message: Product with skuCode 'iphone_13' is not in stock
+                    path: /api/order
+                    timestamp: "2026-04-04T12:00:00Z"
+        '503':
+          description: Inventory service unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+              examples:
+                inventoryUnavailable:
+                  value:
+                    status: 503
+                    message: Failed to check inventory availability
+                    path: /api/order
+                    timestamp: "2026-04-04T12:00:00Z"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+
+components:
+  schemas:
+    OrderRequest:
+      type: object
+      required:
+        - skuCode
+        - price
+        - quantity
+        - userDetails
+      properties:
+        skuCode:
+          type: string
+          minLength: 1
+          maxLength: 255
+          example: iphone_13
+        price:
+          type: number
+          format: double
+          minimum: 0
+          example: 1200.00
+        quantity:
+          type: integer
+          minimum: 1
+          example: 2
+        userDetails:
+          $ref: '#/components/schemas/UserDetails'
+
+    UserDetails:
+      type: object
+      required:
+        - email
+        - firstName
+        - lastName
+      properties:
+        email:
+          type: string
+          format: email
+          example: test@mail.com
+        firstName:
+          type: string
+          minLength: 1
+          maxLength: 100
+          example: Chems
+        lastName:
+          type: string
+          minLength: 1
+          maxLength: 100
+          example: Keltoum
+
+    OrderCreatedResponse:
+      type: object
+      required:
+        - orderNumber
+        - message
+      properties:
+        orderNumber:
+          type: string
+          example: 2c0f0e7e-9f95-4f4b-8ea1-d77f0e6f7f4e
+        message:
+          type: string
+          example: Order placed successfully
+
+    ApiError:
+      type: object
+      required:
+        - status
+        - message
+        - path
+        - timestamp
+      properties:
+        status:
+          type: integer
+          example: 409
+        message:
+          type: string
+          example: Product with skuCode 'iphone_13' is not in stock
+        path:
+          type: string
+          example: /api/order
+        timestamp:
+          type: string
+          format: date-time
+          example: "2026-04-04T12:00:00Z"

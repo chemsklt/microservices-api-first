@@ -1,0 +1,91 @@
+openapi: 3.0.3
+info:
+  title: Inventory API
+  version: 1.0.0
+  description: API for checking inventory availability
+  contact:
+    name: Project Team
+    email: chemsklt@example.com
+
+externalDocs:
+  description: Inventory Service Wiki
+  url: https://wiki/order-service
+
+servers:
+  - url: http://localhost:8082
+
+tags:
+  - name: Inventory
+    description: Inventory operations
+
+paths:
+  /api/inventory:
+    get:
+      tags:
+        - Inventory
+      operationId: isInStock
+      summary: Check if a product is in stock
+      description: Returns whether the requested quantity is available for the given SKU
+      parameters:
+        - name: skuCode
+          in: query
+          required: true
+          description: Product SKU code
+          schema:
+            type: string
+            minLength: 1
+            maxLength: 100
+          example: iphone_13
+        - name: quantity
+          in: query
+          required: true
+          description: Requested quantity
+          schema:
+            type: integer
+            minimum: 1
+          example: 2
+      responses:
+        '200':
+          description: Inventory check completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InventoryResponse'
+        '400':
+          description: Invalid request parameters
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+
+components:
+  schemas:
+    InventoryResponse:
+      type: object
+      properties:
+        skuCode:
+          type: string
+        quantity:
+          type: integer
+        inStock:
+          type: boolean
+      required:
+        - skuCode
+        - quantity
+        - inStock
+
+    ApiError:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: Validation failed
+        path:
+          type: string
+          example: /api/inventory
+        timestamp:
+          type: string
+          format: date-time
