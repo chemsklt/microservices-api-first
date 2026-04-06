@@ -1,7 +1,6 @@
 package com.myproject.orderservice.integration;
 
 
-import com.myproject.orderservice.event.OrderPlacedEvent;
 import com.myproject.orderservice.stubs.InventoryClientStub;
 import io.restassured.RestAssured;
 import org.hamcrest.Matchers;

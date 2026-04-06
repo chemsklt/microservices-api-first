@@ -21,7 +21,6 @@ public interface InventoryClient {
     default InventoryResponse fallbackMethod(String skuCode, Integer quantity, Throwable throwable) {
         log.warn("Inventory fallback triggered for skuCode={}, quantity={}, reason={}",
                 skuCode, quantity, throwable.getMessage());
-
         throw new InventoryServiceUnavailableException(
                 "Inventory service is unavailable for skuCode '%s'".formatted(skuCode),
                 throwable

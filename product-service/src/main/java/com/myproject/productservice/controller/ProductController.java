@@ -29,6 +29,11 @@ public class ProductController implements ProductsApi {
 
     @Override
     public ResponseEntity<ProductPageResponse> getAllProducts(String name, Double minPrice, Double maxPrice, Integer page, Integer size, String sort) {
+//        try {
+//            Thread.sleep(5000);
+//        }catch (InterruptedException e){
+//            throw new RuntimeException(e);
+//        }
         log.info(
                 "Received request to get products with filters name={}, minPrice={}, maxPrice={}, page={}, size={}, sort={}",
                 name, minPrice, maxPrice, page, size, sort

@@ -3,7 +3,7 @@
  *
  * DO NOT EDIT DIRECTLY
  */
-package com.myproject.notivication.order.event;
+package com.myproject.orderservice.event;
 
 import org.apache.avro.generic.GenericArray;
 import org.apache.avro.specific.SpecificData;
@@ -14,10 +14,10 @@ import org.apache.avro.message.SchemaStore;
 
 @org.apache.avro.specific.AvroGenerated
 public class OrderPlacedEvent extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  private static final long serialVersionUID = -5668077616423573257L;
+  private static final long serialVersionUID = -8505682149538926329L;
 
 
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"OrderPlacedEvent\",\"namespace\":\"com.myproject.notivication.order.event\",\"fields\":[{\"name\":\"orderNumber\",\"type\":\"string\"},{\"name\":\"email\",\"type\":\"string\"},{\"name\":\"firstName\",\"type\":\"string\"},{\"name\":\"lastName\",\"type\":\"string\"}]}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"OrderPlacedEvent\",\"namespace\":\"com.myproject.orderservice.event\",\"fields\":[{\"name\":\"orderNumber\",\"type\":\"string\"},{\"name\":\"email\",\"type\":\"string\"},{\"name\":\"firstName\",\"type\":\"string\"},{\"name\":\"lastName\",\"type\":\"string\"}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static final SpecificData MODEL$ = new SpecificData();
@@ -202,8 +202,8 @@ public class OrderPlacedEvent extends org.apache.avro.specific.SpecificRecordBas
    * Creates a new OrderPlacedEvent RecordBuilder.
    * @return A new OrderPlacedEvent RecordBuilder
    */
-  public static com.myproject.notivication.order.event.OrderPlacedEvent.Builder newBuilder() {
-    return new com.myproject.notivication.order.event.OrderPlacedEvent.Builder();
+  public static com.myproject.orderservice.event.OrderPlacedEvent.Builder newBuilder() {
+    return new com.myproject.orderservice.event.OrderPlacedEvent.Builder();
   }
 
   /**
@@ -211,11 +211,11 @@ public class OrderPlacedEvent extends org.apache.avro.specific.SpecificRecordBas
    * @param other The existing builder to copy.
    * @return A new OrderPlacedEvent RecordBuilder
    */
-  public static com.myproject.notivication.order.event.OrderPlacedEvent.Builder newBuilder(com.myproject.notivication.order.event.OrderPlacedEvent.Builder other) {
+  public static com.myproject.orderservice.event.OrderPlacedEvent.Builder newBuilder(com.myproject.orderservice.event.OrderPlacedEvent.Builder other) {
     if (other == null) {
-      return new com.myproject.notivication.order.event.OrderPlacedEvent.Builder();
+      return new com.myproject.orderservice.event.OrderPlacedEvent.Builder();
     } else {
-      return new com.myproject.notivication.order.event.OrderPlacedEvent.Builder(other);
+      return new com.myproject.orderservice.event.OrderPlacedEvent.Builder(other);
     }
   }
 
@@ -224,11 +224,11 @@ public class OrderPlacedEvent extends org.apache.avro.specific.SpecificRecordBas
    * @param other The existing instance to copy.
    * @return A new OrderPlacedEvent RecordBuilder
    */
-  public static com.myproject.notivication.order.event.OrderPlacedEvent.Builder newBuilder(com.myproject.notivication.order.event.OrderPlacedEvent other) {
+  public static com.myproject.orderservice.event.OrderPlacedEvent.Builder newBuilder(com.myproject.orderservice.event.OrderPlacedEvent other) {
     if (other == null) {
-      return new com.myproject.notivication.order.event.OrderPlacedEvent.Builder();
+      return new com.myproject.orderservice.event.OrderPlacedEvent.Builder();
     } else {
-      return new com.myproject.notivication.order.event.OrderPlacedEvent.Builder(other);
+      return new com.myproject.orderservice.event.OrderPlacedEvent.Builder(other);
     }
   }
 
@@ -253,7 +253,7 @@ public class OrderPlacedEvent extends org.apache.avro.specific.SpecificRecordBas
      * Creates a Builder by copying an existing Builder.
      * @param other The existing Builder to copy.
      */
-    private Builder(com.myproject.notivication.order.event.OrderPlacedEvent.Builder other) {
+    private Builder(com.myproject.orderservice.event.OrderPlacedEvent.Builder other) {
       super(other);
       if (isValidValue(fields()[0], other.orderNumber)) {
         this.orderNumber = data().deepCopy(fields()[0].schema(), other.orderNumber);
@@ -277,7 +277,7 @@ public class OrderPlacedEvent extends org.apache.avro.specific.SpecificRecordBas
      * Creates a Builder by copying an existing OrderPlacedEvent instance
      * @param other The existing instance to copy.
      */
-    private Builder(com.myproject.notivication.order.event.OrderPlacedEvent other) {
+    private Builder(com.myproject.orderservice.event.OrderPlacedEvent other) {
       super(SCHEMA$, MODEL$);
       if (isValidValue(fields()[0], other.orderNumber)) {
         this.orderNumber = data().deepCopy(fields()[0].schema(), other.orderNumber);
@@ -311,7 +311,7 @@ public class OrderPlacedEvent extends org.apache.avro.specific.SpecificRecordBas
       * @param value The value of 'orderNumber'.
       * @return This builder.
       */
-    public com.myproject.notivication.order.event.OrderPlacedEvent.Builder setOrderNumber(java.lang.CharSequence value) {
+    public com.myproject.orderservice.event.OrderPlacedEvent.Builder setOrderNumber(java.lang.CharSequence value) {
       validate(fields()[0], value);
       this.orderNumber = value;
       fieldSetFlags()[0] = true;
@@ -331,7 +331,7 @@ public class OrderPlacedEvent extends org.apache.avro.specific.SpecificRecordBas
       * Clears the value of the 'orderNumber' field.
       * @return This builder.
       */
-    public com.myproject.notivication.order.event.OrderPlacedEvent.Builder clearOrderNumber() {
+    public com.myproject.orderservice.event.OrderPlacedEvent.Builder clearOrderNumber() {
       orderNumber = null;
       fieldSetFlags()[0] = false;
       return this;
@@ -351,7 +351,7 @@ public class OrderPlacedEvent extends org.apache.avro.specific.SpecificRecordBas
       * @param value The value of 'email'.
       * @return This builder.
       */
-    public com.myproject.notivication.order.event.OrderPlacedEvent.Builder setEmail(java.lang.CharSequence value) {
+    public com.myproject.orderservice.event.OrderPlacedEvent.Builder setEmail(java.lang.CharSequence value) {
       validate(fields()[1], value);
       this.email = value;
       fieldSetFlags()[1] = true;
@@ -371,7 +371,7 @@ public class OrderPlacedEvent extends org.apache.avro.specific.SpecificRecordBas
       * Clears the value of the 'email' field.
       * @return This builder.
       */
-    public com.myproject.notivication.order.event.OrderPlacedEvent.Builder clearEmail() {
+    public com.myproject.orderservice.event.OrderPlacedEvent.Builder clearEmail() {
       email = null;
       fieldSetFlags()[1] = false;
       return this;
@@ -391,7 +391,7 @@ public class OrderPlacedEvent extends org.apache.avro.specific.SpecificRecordBas
       * @param value The value of 'firstName'.
       * @return This builder.
       */
-    public com.myproject.notivication.order.event.OrderPlacedEvent.Builder setFirstName(java.lang.CharSequence value) {
+    public com.myproject.orderservice.event.OrderPlacedEvent.Builder setFirstName(java.lang.CharSequence value) {
       validate(fields()[2], value);
       this.firstName = value;
       fieldSetFlags()[2] = true;
@@ -411,7 +411,7 @@ public class OrderPlacedEvent extends org.apache.avro.specific.SpecificRecordBas
       * Clears the value of the 'firstName' field.
       * @return This builder.
       */
-    public com.myproject.notivication.order.event.OrderPlacedEvent.Builder clearFirstName() {
+    public com.myproject.orderservice.event.OrderPlacedEvent.Builder clearFirstName() {
       firstName = null;
       fieldSetFlags()[2] = false;
       return this;
@@ -431,7 +431,7 @@ public class OrderPlacedEvent extends org.apache.avro.specific.SpecificRecordBas
       * @param value The value of 'lastName'.
       * @return This builder.
       */
-    public com.myproject.notivication.order.event.OrderPlacedEvent.Builder setLastName(java.lang.CharSequence value) {
+    public com.myproject.orderservice.event.OrderPlacedEvent.Builder setLastName(java.lang.CharSequence value) {
       validate(fields()[3], value);
       this.lastName = value;
       fieldSetFlags()[3] = true;
@@ -451,7 +451,7 @@ public class OrderPlacedEvent extends org.apache.avro.specific.SpecificRecordBas
       * Clears the value of the 'lastName' field.
       * @return This builder.
       */
-    public com.myproject.notivication.order.event.OrderPlacedEvent.Builder clearLastName() {
+    public com.myproject.orderservice.event.OrderPlacedEvent.Builder clearLastName() {
       lastName = null;
       fieldSetFlags()[3] = false;
       return this;

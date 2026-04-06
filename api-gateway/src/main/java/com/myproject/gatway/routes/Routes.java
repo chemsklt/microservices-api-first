@@ -88,6 +88,8 @@ public class Routes {
         return route("fallbackRoute")
                 .GET("/fallbackRoute", request -> ServerResponse.status(HttpStatus.SERVICE_UNAVAILABLE)
                         .body("Service Unavailable, please try again later"))
+                .POST("/fallbackRoute", request -> ServerResponse.status(HttpStatus.SERVICE_UNAVAILABLE)
+                        .body("Service Unavailable, please try again later"))
                 .build();
     }
 }
