@@ -1,6 +1,7 @@
 package com.myproject.notivication.service;
 
 import com.myproject.notivication.NotificationService;
+import com.myproject.orderservice.event.OrderPlacedEvent;
 import jakarta.mail.Message;
 import jakarta.mail.Session;
 import jakarta.mail.internet.InternetAddress;

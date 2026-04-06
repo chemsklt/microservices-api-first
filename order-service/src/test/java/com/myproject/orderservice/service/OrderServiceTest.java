@@ -3,6 +3,7 @@ package com.myproject.orderservice.service;
 import com.myproject.orderservice.client.InventoryClient;
 import com.myproject.orderservice.domain.Order;
 import com.myproject.orderservice.dto.InventoryResponse;
+import com.myproject.orderservice.event.OrderPlacedEvent;
 import com.myproject.orderservice.exception.InventoryServiceUnavailableException;
 import com.myproject.orderservice.exception.OrderProcessingException;
 import com.myproject.orderservice.exception.ProductOutOfStockException;
